@@ -35,7 +35,7 @@
       class="mr-4"
       @click="validate"
     >
-      Войти
+      Войти <v-icon>mdi-send</v-icon>
     </v-btn>
 
 

@@ -46,9 +46,9 @@
       :disabled="!valid"
       color="success"
       class="mr-4"
-      @click="validate"
+      @click="submit"
     >
-      Зарегестрироваться
+      Зарегестрироваться <v-icon>mdi-send</v-icon>
     </v-btn>
     <div class="span">
       <span>Уже есть аккаунт? <router-link to="/login">ВОЙТИ</router-link></span>
@@ -84,6 +84,21 @@ export default {
   }),
 
   methods: {
+    submit(){
+      if (this.$refs.form.validate()){
+
+        const formData={
+          name:this.name,
+          email:this.email,
+          password:this.password
+        }
+        console.log(formData)
+
+        this.$router.push('/')
+      }else {
+        this.$refs.form.validate()
+      }
+    },
     validate () {
       this.$refs.form.validate()
     },
