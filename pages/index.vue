@@ -1,13 +1,8 @@
 <template>
-
 </template>
 
 <script>
 export default {
-  name: "registration"
+  name: 'IndexPage'
 }
 </script>
-
-<style scoped>
-
-</style>
