@@ -37,6 +37,23 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: "AIzaSyD_4CRPdYJKWU4YBQe2WX_j4tyx1jE77A8",
+          authDomain: "super-nuxt-crm.firebaseapp.com",
+          projectId: "super-nuxt-crm",
+          storageBucket: "super-nuxt-crm.appspot.com",
+          messagingSenderId: "979245958326",
+          appId: "1:979245958326:web:f22859f3ab3831b3851217",
+          measurementId: "G-EMFW5PC9V3"
+        },
+        services: {
+          auth: true // Just as example. Can be any other service.
+        }
+      }
+    ]
   ],
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

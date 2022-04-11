@@ -72,14 +72,21 @@ export default {
   }),
 
   methods: {
-    validate () {
+    async validate () {
       if (this.$refs.form.validate()){
         const user={
           email: this.email,
           password: this.password
         }
-        console.log(user)
-        this.$router.push('/')
+
+        try {
+          await this.$store.dispatch('auth/login', user)
+
+          this.$router.push('/')
+        }catch (e){
+          console.log('rererere')
+        }
+
       }else {
         this.$refs.form.validate()
       }
