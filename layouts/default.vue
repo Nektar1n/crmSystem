@@ -86,7 +86,7 @@
           <v-list-item-title>Профиль</v-list-item-title>
         </v-list-item>
 
-        <v-list-item @click="exit">
+        <v-list-item @click="exitWithLogout">
           <v-list-item-action>
             <v-icon>
               mdi-arrow-up-bold-box-outline
@@ -132,8 +132,9 @@ export default {
     }
   },
   methods:{
-    exit(){
-      this.$router.push('/login')
+    async exitWithLogout(){
+      await this.$store.dispatch('auth/logout')
+      this.$router.push('/login?message=logout')
     }
   }
 }

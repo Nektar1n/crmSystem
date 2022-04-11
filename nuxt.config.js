@@ -43,6 +43,7 @@ export default {
         config: {
           apiKey: "AIzaSyD_4CRPdYJKWU4YBQe2WX_j4tyx1jE77A8",
           authDomain: "super-nuxt-crm.firebaseapp.com",
+          databaseURL: "https://super-nuxt-crm-default-rtdb.europe-west1.firebasedatabase.app",
           projectId: "super-nuxt-crm",
           storageBucket: "super-nuxt-crm.appspot.com",
           messagingSenderId: "979245958326",
@@ -50,7 +51,8 @@ export default {
           measurementId: "G-EMFW5PC9V3"
         },
         services: {
-          auth: true // Just as example. Can be any other service.
+          auth: true, // Just as example. Can be any other service.
+          database: true
         }
       }
     ]

@@ -84,17 +84,22 @@ export default {
   }),
 
   methods: {
-    submit(){
+    async submit(){
       if (this.$refs.form.validate()){
 
-        const formData={
+        const user={
           name:this.name,
           email:this.email,
           password:this.password
         }
-        console.log(formData)
+        try {
+          await this.$store.dispatch('auth/registration',user)
+          console.log('heybro')
+          this.$router.push('/')
+        }catch (e){
+          console.log('hyi')
+        }
 
-        this.$router.push('/')
       }else {
         this.$refs.form.validate()
       }
