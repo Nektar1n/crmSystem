@@ -23,17 +23,19 @@ export const actions={
     async login({dispatch, commit}, {email, password}){
       try{
         await firebase.auth().signInWithEmailAndPassword(email,password)
+
         const user={
           email,
           password
         }
         commit('setUser', user)
+
       }catch (e){
         console.log('this is error man',e.message)
         if (e.message.includes('auth/user-not-found')){
           commit('setErr', 'Пользователя с таким Email или паролем не существует.')
         }else if (e.message.includes('auth/wrong-password')){
-          commit('setErr', 'Пользователя с таким паролем не существует.')
+          commit('setErr', 'Неверный пароль.')
         }
         throw e
       }
@@ -42,7 +44,7 @@ export const actions={
       await firebase.auth().signOut()
     },
 
-    async registration({dispatch},{name,email,password}){
+    async registration({dispatch, commit},{name,email,password}){
       try{
         await firebase.auth().createUserWithEmailAndPassword(email,password)
         const uid=await dispatch('getUid')
@@ -50,7 +52,17 @@ export const actions={
           bill:10000,
           name,
         })
+        const user={
+          email,
+          password
+        }
+        commit('setUser', user)
+
       }catch (e){
+        console.log('this is error man',e.message)
+        if (e.message.includes('auth/email-already-in-use')){
+          commit('setErr', 'Пользователь с таким Email уже существует.')
+        }
         throw e
       }
     },

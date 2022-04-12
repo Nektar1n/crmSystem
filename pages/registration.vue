@@ -1,4 +1,6 @@
 <template>
+  <v-card>
+  <Snackbar/>
   <v-form
     class="form"
     ref="form"
@@ -54,11 +56,14 @@
       <span>Уже есть аккаунт? <router-link to="/login">ВОЙТИ</router-link></span>
     </div>
   </v-form>
+  </v-card>
 </template>
 
 <script>
+import Snackbar from "../components/Snackbar";
 export default {
   name:'registration',
+  components: {Snackbar},
   layout:'started',
   data: () => ({
     valid: true,
@@ -93,11 +98,14 @@ export default {
           password:this.password
         }
         try {
-          await this.$store.dispatch('auth/registration',user)
+          await this.$store.dispatch('auth/registration',user).then(()=>{
+            this.$router.push('/')
+          })
           console.log('heybro')
-          this.$router.push('/')
+
+
         }catch (e){
-          console.log('hyi')
+          console.log('hey registration', e)
         }
 
       }else {
