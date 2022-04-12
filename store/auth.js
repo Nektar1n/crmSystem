@@ -29,9 +29,11 @@ export const actions={
         }
         commit('setUser', user)
       }catch (e){
-        console.log('this is error man',e.name)
-        if (e.name==='FirebaseError'){
-          commit('setErr', 'Такого пользователя не существует')
+        console.log('this is error man',e.message)
+        if (e.message.includes('auth/user-not-found')){
+          commit('setErr', 'Пользователя с таким Email или паролем не существует.')
+        }else if (e.message.includes('auth/wrong-password')){
+          commit('setErr', 'Пользователя с таким паролем не существует.')
         }
         throw e
       }
