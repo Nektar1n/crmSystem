@@ -10,7 +10,8 @@
 
 <script>
 export default {
-  name: "started"
+  name: "started",
+
 }
 </script>
 

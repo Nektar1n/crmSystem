@@ -1,4 +1,37 @@
 <template>
+  <v-card>
+<!--    <v-snackbar-->
+<!--      v-model="snackbar"-->
+<!--      :timeout="6000"-->
+<!--      top-->
+<!--    >-->
+<!--      {{ message }}-->
+<!--      <v-btn-->
+<!--        color="blue"-->
+<!--        flat-->
+<!--        @click="snackbar = false"-->
+<!--      >-->
+<!--        Закрыть-->
+<!--      </v-btn>-->
+<!--    </v-snackbar>-->
+    <v-snackbar
+      top
+      v-model="snackbar"
+      :vertical="vertical"
+    >
+      {{ message }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="indigo"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   <v-form
     ref="form"
     v-model="valid"
@@ -49,6 +82,7 @@
     <span>Нет аккаунта? <router-link to="/registration" id="registr">ЗАРЕГЕСТРИРОВАТЬСЯ</router-link></span>
     </div>
   </v-form>
+  </v-card>
 </template>
 
 <script>
@@ -69,6 +103,9 @@ export default {
       min: v => v.length >= 8 || 'Min 8 characters',
       emailMatch: () => (`The email and password you entered don't match`),
     },
+    message:'',
+    snackbar:false,
+    vertical:true
   }),
 
   methods: {
@@ -99,6 +136,40 @@ export default {
       this.$refs.form.resetValidation()
     },
   },
+  // computed:{
+  //   error(){
+  //     return this.$store.getters.auth.getError
+  //   }
+  // },
+  // watch:{
+  //   error(fbError){
+  //     console.log(fbError)
+  //   }
+  // }
+  computed:{
+    err(){
+      return this.$store.state.auth.err
+    },
+  },
+  watch:{
+    err(){
+      this.message=this.err
+      this.snackbar=!!this.message
+      setTimeout(()=>{
+        this.$store.commit('auth/clearErr')
+      },7000)
+
+    }
+  },
+  mounted() {
+    const {message}=this.$route.query
+    if (message==='noUser'){
+      this.message='Пожалуйста, введите ваши данные.'
+    }else if (message==='logout'){
+      this.message='Вы вышли из системы.'
+    }
+    this.snackbar=!!this.message
+  }
 }
 </script>
 
