@@ -50,6 +50,7 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <h1>{{name}}</h1>
       <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer"
@@ -116,13 +117,18 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Главная',
           to: '/'
         },
         {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire'
+        },
+        {
+          icon: 'mdi-domain',
+          title: 'Счёт',
+          to: '/score'
         }
       ],
       miniVariant: false,
@@ -133,8 +139,19 @@ export default {
   },
   methods:{
     async exitWithLogout(){
-      await this.$store.dispatch('auth/logout')
+      await this.$store.dispatch('logout')
       this.$router.push('/login?message=logout')
+    }
+  },
+  async mounted() {
+    if (!Object.keys(this.$store.getters["info/info"]).length){
+      await this.$store.dispatch('info/fetchInfo')
+      console.log(this.$store.getters["info/info"])
+    }
+  },
+  computed:{
+    name(){
+      return this.$store.getters["info/info"].name
     }
   }
 }

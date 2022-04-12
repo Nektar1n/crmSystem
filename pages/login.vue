@@ -99,7 +99,7 @@ export default {
         }
 
         try {
-          await this.$store.dispatch('auth/login', user)
+          await this.$store.dispatch('login', user)
 
           this.$router.push('/')
         }catch (e){

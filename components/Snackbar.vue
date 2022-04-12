@@ -32,7 +32,7 @@ export default {
       // setTimeout(()=>{
       //   this.$store.commit('auth/clearErr')
       // },7000)
-      return this.$store.state.auth.err
+      return this.$store.state.err
 
     },
   },
@@ -42,7 +42,7 @@ export default {
       this.snackbar=!!this.message
       console.log('it s fb error'+fbError)
       setTimeout(()=>{
-        this.$store.commit('auth/clearErr')
+        this.$store.commit('clearErr')
       },7000)
 
     }

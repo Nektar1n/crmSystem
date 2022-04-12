@@ -98,7 +98,7 @@ export default {
           password:this.password
         }
         try {
-          await this.$store.dispatch('auth/registration',user).then(()=>{
+          await this.$store.dispatch('registration',user).then(()=>{
             this.$router.push('/')
           })
           console.log('heybro')
