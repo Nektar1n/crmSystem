@@ -62,7 +62,9 @@
     </v-app-bar>
     <v-main>
       <v-container>
+        <transition name="home">
         <Nuxt />
+        </transition>
       </v-container>
     </v-main>
     <v-navigation-drawer
@@ -133,6 +135,11 @@ export default {
           icon: 'mdi-domain',
           title: 'Счёт',
           to: '/score'
+        },
+        {
+          icon: 'mdi-widgets',
+          title: 'Категории',
+          to:'/categories'
         }
       ],
       miniVariant: false,
@@ -168,3 +175,9 @@ export default {
   }
 }
 </script>
+
+
+<style>
+.home-enter-active, .home-leave-active { transition: opacity .5s; }
+.home-enter, .home-leave-active { opacity: 0; }
+</style>
