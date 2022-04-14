@@ -24,6 +24,11 @@ export const actions={
     try{
       await firebase.auth().signInWithEmailAndPassword(email,password)
 
+
+      const uid=firebase.auth().currentUser.uid
+      localStorage.setItem('uid',uid)
+      //Вроде как работает))))
+
       // const user={
       //   email,
       //   password
@@ -72,7 +77,8 @@ export const actions={
     return user? user.uid : null
   },
   async fetchCurrency(){
-    const key=''
-    fetch('')
+    const key='b4ff05af76ad453cd62fae0b5e618e70'
+    const res=await fetch(`http://data.fixer.io/api/latest?access_key=${key}&symbols=USD,EUR,RUB,UAH`)
+    return await res.json()
   }
 }

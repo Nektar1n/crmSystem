@@ -5,7 +5,9 @@
 // }
 
 // export default function ({store,redirect}){
-//   if (!Object.keys(store.getters["info/info"]).length){
-//     redirect('/login?message=noUser')
-//   }
+//   setTimeout(()=>{
+//     if (!Object.keys(store.state.info.info).length){
+//       redirect('/login?message=noUser')
+//     }
+//   },1000)
 // }

@@ -2,7 +2,7 @@
   <div>
     <v-data-table
       :headers="headers"
-      :items="desserts"
+      :items="valutes"
       item-key="name"
       class="elevation-1"
       :search="search"
@@ -15,19 +15,19 @@
           class="mx-4"
         ></v-text-field>
       </template>
-      <template v-slot:body.append>
-        <tr>
-          <td></td>
-          <td>
-            <v-text-field
-              v-model="calories"
-              type="number"
-              label="Less than"
-            ></v-text-field>
-          </td>
-          <td colspan="4"></td>
-        </tr>
-      </template>
+<!--      <template v-slot:body.append>-->
+<!--        <tr>-->
+<!--          <td></td>-->
+<!--          <td>-->
+<!--            <v-text-field-->
+<!--              v-model="count"-->
+<!--              type="number"-->
+<!--              label="Less than"-->
+<!--            ></v-text-field>-->
+<!--          </td>-->
+<!--          <td colspan="4"></td>-->
+<!--        </tr>-->
+<!--      </template>-->
     </v-data-table>
   </div>
 </template>
@@ -37,40 +37,30 @@ export default {
   name:'Currency',
   data () {
     return {
+      currencies:['RUB','USD','EUR','UAH'],
+      count:'',
       search: '',
-      calories: '',
-      desserts: [
+      course: '',
+      valutes: [
         {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: '1%',
+          name: 'RUB',
+          course: this.currency.rates['RUB'],
+          date: this.date,
         },
         {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: '1%',
+          name: 'USD',
+          course: this.currency.rates['USD'],
+          date: this.date,
         },
         {
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: '7%',
+          name: 'EUR',
+          course: this.currency.rates['EUR'],
+          date: this.date,
         },
         {
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: '8%',
+          name: 'UAH',
+          course: this.currency.rates['UAH'],
+          date: this.date,
         },
       ],
     }
@@ -79,24 +69,21 @@ export default {
     headers () {
       return [
         {
-          text: 'Dessert (100g serving)',
+          text: 'Валюта',
           align: 'start',
           sortable: false,
           value: 'name',
         },
         {
-          text: 'Calories',
-          value: 'calories',
+          text: 'Курс',
+          value: 'course',
           filter: value => {
-            if (!this.calories) return true
+            if (!this.course) return true
 
-            return value < parseInt(this.calories)
+            return value < parseInt(this.course)
           },
         },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
-        { text: 'Iron (%)', value: 'iron' },
+        { text: 'Дата', value: 'date' },
       ]
     },
   },
@@ -108,6 +95,13 @@ export default {
         value.toString().toLocaleUpperCase().indexOf(search) !== -1
     },
   },
+  props:['rates','date','currency'],
+  mounted() {
+    console.log('is rates'+this.rates)
+
+    console.log(this.currency.rates['RUB'])
+  }
+
 }
 </script>
 

@@ -9,9 +9,8 @@
         Счёт в валюте
       </p>
       <p>adjective</p>
-      <div class="text--primary">
-        relating to or dependent on charity; charitable.<br>
-        "an eleemosynary educational institution."
+      <div class="text--primary" v-for="cur of currencies" :key="cur">
+        <h1 >{{getCurrency(cur) | currencyFilter(cur)}}</h1><br>
       </div>
     </v-card-text>
     <v-card-actions>
@@ -55,8 +54,29 @@
 export default {
   name: "HomeBill",
   data:()=>({
-    reveal:false
-  })
+    reveal:false,
+    currencies:['RUB','USD','EUR','UAH']
+  }),
+  computed:{
+    base(){
+      return this.$store.getters["info/info"].bill/(this.rates['RUB']/this.rates['EUR'])
+    }
+  },
+  methods:{
+    getCurrency(currency){
+      return Math.floor(this.base*this.rates[currency])
+    }
+  },
+  props:['rates'],
+  filters:{
+    currencyFilter(value,currency='RUB'){
+      return new Intl.NumberFormat('ru-RU',{
+        style:'currency',
+        currency
+      }).format(value)
+    },
+
+  }
 }
 </script>
 

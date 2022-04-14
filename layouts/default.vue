@@ -1,6 +1,8 @@
 <template>
   <v-app dark>
+    <Loader v-if="loading"/>
     <v-navigation-drawer
+      v-else
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -107,8 +109,10 @@
 </template>
 
 <script>
+import Loader from "../components/app/Loader";
 export default {
   name: 'DefaultLayout',
+  components: {Loader},
   data () {
     return {
       clipped: false,
@@ -134,20 +138,28 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'true_CRM'
+      title: 'true_CRM',
+      loading: true,
     }
   },
   methods:{
     async exitWithLogout(){
       await this.$store.dispatch('logout')
+      localStorage.removeItem('uid');
       this.$router.push('/login?message=logout')
     }
   },
   async mounted() {
+    if (!localStorage.getItem('uid')){
+      this.$router.push('/login?message=noUser')
+    }
+
     if (!Object.keys(this.$store.getters["info/info"]).length){
       await this.$store.dispatch('info/fetchInfo')
       console.log(this.$store.getters["info/info"])
     }
+
+    this.loading=false
   },
   computed:{
     name(){

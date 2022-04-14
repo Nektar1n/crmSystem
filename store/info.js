@@ -19,14 +19,21 @@ export const actions={
     try {
       // const uid=await dispatch('getUid')
       // const info=(await firebase.database().ref(`users/${uid}/info`).once('value')).val()
-      const uid=firebase.auth().currentUser.uid
+
+
+
       // const info=firebase.auth().currentUser
-      const info=(await firebase.database().ref(`users/${uid}/info`).once('value')).val()
+      const info=(await firebase.database().ref(`users/${localStorage.getItem('uid')}/info`).once('value')).val()
       commit('setInfo', info)
+
     }catch (e){
 
     }
-  }
+  },
+  // getUid(){
+  //   const user=firebase.auth().currentUser
+  //   return user? user.uid : null
+  // },
 }
 export const getters={
   info:s=>s.info
