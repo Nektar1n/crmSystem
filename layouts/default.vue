@@ -140,6 +140,9 @@ export default {
           icon: 'mdi-widgets',
           title: 'Категории',
           to:'/categories'
+        },
+        {
+
         }
       ],
       miniVariant: false,

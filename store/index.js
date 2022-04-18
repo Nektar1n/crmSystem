@@ -78,7 +78,7 @@ export const actions={
   },
   async fetchCurrency(){
     const key='b4ff05af76ad453cd62fae0b5e618e70'
-    const res=await fetch(`http://data.fixer.io/api/latest?access_key=${key}&symbols=USD,EUR,RUB,UAH`)
+    const res=await fetch(`http://data.fixer.io/api/latest?access_key=${key}&symbols=USD,EUR,RUB,UAH,CLP,ETB,GHS,JPY`)
     return await res.json()
   }
 }

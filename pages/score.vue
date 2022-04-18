@@ -1,5 +1,9 @@
 <template>
-  <div class="score">
+  <div class="container">
+    <div class="loading" v-if="loading">
+      <Loader/>
+    </div>
+  <v-card class="score" v-else>
     <h1>Счёт:</h1>
     <div class="loadBtn">
       <v-btn
@@ -10,17 +14,15 @@
         <v-icon>mdi-cached</v-icon>
       </v-btn>
     </div>
-    <div class="loading" v-if="loading">
-      <Loader/>
-    </div>
-    <div v-else class="cards">
+    <v-card-text class="cards">
       <HomeBill :rates="currency.rates"/>
       <Currency :rates="currency.rates"
                 :date="currency.date"
                 :currency="currency"
                 class="currency"
       />
-    </div>
+    </v-card-text>
+  </v-card>
   </div>
 </template>
 
@@ -37,7 +39,6 @@ export default {
   components: {Currency, HomeBill, Loader},
   async mounted() {
     this.currency=await this.$store.dispatch('fetchCurrency')
-    console.log(this.currency)
     this.loading=false
   },
   methods:{

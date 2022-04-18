@@ -37,7 +37,7 @@ export default {
   name:'Currency',
   data () {
     return {
-      currencies:['RUB','USD','EUR','UAH'],
+      currencies:['RUB','USD','EUR','UAH','CLP','ETB','GHS','JPY'],
       count:'',
       search: '',
       course: '',
@@ -62,6 +62,22 @@ export default {
           course: this.currency.rates['UAH'],
           date: this.date,
         },
+        {
+          name: 'CLP',
+          course: this.currency.rates['CLP'],
+          date: this.date
+        },
+        {
+          name: 'GHS',
+          course: this.currency.rates['GHS'],
+          date: this.date
+        },
+        {
+          name: 'JPY',
+          course: this.currency.rates['JPY'],
+          date: this.date
+        },
+
       ],
     }
   },

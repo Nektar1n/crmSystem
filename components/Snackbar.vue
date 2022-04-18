@@ -35,6 +35,9 @@ export default {
       return this.$store.state.err
 
     },
+    createCategory(){
+      return this.$store.state.category.category
+    }
   },
   watch:{
     err(fbError){
@@ -45,7 +48,16 @@ export default {
         this.$store.commit('clearErr')
       },7000)
 
-    }
+    },
+    createCategory(){
+      this.message='Вы создали категорию'
+      this.snackbar=!!this.message
+      console.log('its create category'+this.createCategory)
+      // setTimeout(()=>{
+      //   this.$store.commit('clearErr')
+      // },7000)
+    },
+
   },
   mounted() {
     const {message}=this.$route.query

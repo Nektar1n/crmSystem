@@ -1,63 +1,72 @@
 <template>
-  <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-  >
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Name"
-      required
-    ></v-text-field>
+  <v-card width="40%">
+    <v-card-title>Создать категорию</v-card-title>
+        <v-form
+          ref="form"
+          v-model="valid"
+          lazy-validation
+        >
+          <v-card-text>
+          <v-text-field
+            v-model="title"
+            :counter="10"
+            :rules="nameRules"
+            label="Name"
+            required
+          ></v-text-field>
 
-    <v-text-field
-      v-model="email"
-      :rules="emailRules"
-      label="E-mail"
-      required
-    ></v-text-field>
 
-    <v-select
-      v-model="select"
-      :items="items"
-      :rules="[v => !!v || 'Item is required']"
-      label="Item"
-      required
-    ></v-select>
+          <v-text-field
+            type="number"
+            prefix="₽"
+            v-model.number="limit"
+            :counter="10"
+            :rules="limitRules"
+            label="Limit"
+            required
+          ></v-text-field>
+      <!--    <v-text-field-->
+      <!--      v-model="email"-->
+      <!--      :rules="emailRules"-->
+      <!--      label="E-mail"-->
+      <!--      required-->
+      <!--    ></v-text-field>-->
 
-    <v-checkbox
-      v-model="checkbox"
-      :rules="[v => !!v || 'You must agree to continue!']"
-      label="Do you agree?"
-      required
-    ></v-checkbox>
+      <!--    <v-select-->
+      <!--      v-model="select"-->
+      <!--      :items="items"-->
+      <!--      :rules="[v => !!v || 'Item is required']"-->
+      <!--      label="Item"-->
+      <!--      required-->
+      <!--    ></v-select>-->
 
-    <v-btn
-      :disabled="!valid"
-      color="success"
-      class="mr-4"
-      @click="validate"
-    >
-      Validate
-    </v-btn>
+      <!--    <v-checkbox-->
+      <!--      v-model="checkbox"-->
+      <!--      :rules="[v => !!v || 'You must agree to continue!']"-->
+      <!--      label="Do you agree?"-->
+      <!--      required-->
+      <!--    ></v-checkbox>-->
 
-    <v-btn
-      color="error"
-      class="mr-4"
-      @click="reset"
-    >
-      Reset Form
-    </v-btn>
+          <v-btn
+            :disabled="!valid"
+            color="success"
+            class="mr-4"
+            @click="submit"
+          >
+            Создать
+          </v-btn>
 
-    <v-btn
-      color="warning"
-      @click="resetValidation"
-    >
-      Reset Validation
-    </v-btn>
-  </v-form>
+          <v-btn
+            color="error"
+            class="mr-4"
+            @click="reset"
+          >
+            Очистить
+          </v-btn>
+
+          </v-card-text>
+        </v-form>
+  </v-card>
 </template>
 
 <script>
@@ -65,15 +74,16 @@ export default {
   name:'CategoriesForm',
   data: () => ({
     valid: true,
-    name: '',
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+    title: '',
+    limit: 100,
+    limitRules:[
+      v => !!v || "Введите лимит.",
+      v => (v && Number(v) >= 100) || "Лимит должен быть не меньше 100.",
+      v => (v && String(v).length <= 10) || "Слишком большое количество денег."
     ],
-    email: '',
-    emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+    nameRules: [
+      v => !!v || 'Имя пустое.',
+      v => (v && v.length <= 10) || 'Имя категории не может превышать 10 символов.',
     ],
     select: null,
     items: [
@@ -86,8 +96,26 @@ export default {
   }),
 
   methods: {
-    validate () {
-      this.$refs.form.validate()
+    async submit () {
+      if (this.$refs.form.validate()){
+        try {
+          const category=await this.$store.dispatch('category/createCategory',{
+            title:this.title,
+            limit:this.limit
+          })
+          this.title=''
+          this.limit=100
+          this.$refs.form.resetValidation()
+          this.$emit('createCategory', category)
+          await this.$store.dispatch('category/fetchCategories')
+        }catch (e){
+
+        }
+      }else{
+        this.$refs.form.validate()
+      }
+
+
     },
     reset () {
       this.$refs.form.reset()
