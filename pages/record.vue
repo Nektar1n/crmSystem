@@ -32,18 +32,27 @@
           ></v-radio>
         </v-radio-group>
         <v-text-field
+          required
           v-model.number="sum"
           filled
           label="Сумма"
           clearable
+          type="number"
+          :counter="10"
+          :rules="sumRules"
         ></v-text-field>
         <v-text-field
           v-model="description"
           filled
           label="Описание"
           clearable
+          required
+          :counter="200"
+          :rules="descriptionRules"
         ></v-text-field>
-        <v-btn color="primary">
+        <v-btn color="primary"
+               @click="submit"
+        >
           Создать
         </v-btn>
       </v-form>
@@ -65,7 +74,16 @@ export default {
     categories: [],
     loading: true,
     category: null,
-    type:'outcome'
+    type:'outcome',
+    sumRules:[
+      v => !!v || "Введите сумму.",
+      v => (v && Number(v) >= 100) || "Сумма должна быть не меньше 100.",
+      v => (v && String(v).length <= 10) || "Слишком большое количество денег."
+    ],
+    descriptionRules: [
+      v => !!v || 'Описание пустое.',
+      v => (v && v.length <= 200) || 'Описание категорий не должно превышать 200 символов.',
+    ],
 
   }),
   async mounted() {
@@ -75,6 +93,29 @@ export default {
     // if (this.categories.length){
     //   this.category=this.categories[0].title
     // }
+  },
+  methods:{
+    async submit () {
+      if (this.$refs.form.validate()){
+        try {
+          // const category=await this.$store.dispatch('category/createCategory',{
+          //   title:this.title,
+          //   limit:this.limit
+          // })
+          // this.title=''
+          // this.limit=100
+          // this.$refs.form.resetValidation()
+          // this.$emit('createCategory', category)
+          // await this.$store.dispatch('category/fetchCategories')
+        }catch (e){
+
+        }
+      }else{
+        this.$refs.form.validate()
+      }
+
+
+    },
   }
 }
 </script>

@@ -9,7 +9,7 @@
           <v-card-text>
           <v-text-field
             v-model="title"
-            :counter="10"
+            :counter="20"
             :rules="nameRules"
             label="Name"
             required
@@ -83,7 +83,7 @@ export default {
     ],
     nameRules: [
       v => !!v || 'Имя пустое.',
-      v => (v && v.length <= 10) || 'Имя категории не может превышать 10 символов.',
+      v => (v && v.length <= 20) || 'Имя категории не может превышать 20 символов.',
     ],
     select: null,
     items: [
@@ -114,8 +114,6 @@ export default {
       }else{
         this.$refs.form.validate()
       }
-
-
     },
     reset () {
       this.$refs.form.reset()
