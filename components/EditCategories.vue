@@ -1,80 +1,84 @@
 <template>
   <v-card width="40%">
-    <v-card-title>Редактировать категорию</v-card-title>
-        <v-form
-          ref="form"
-          v-model="valid"
-          lazy-validation
-        >
-          <v-card-text>
-            <v-select
-              dense
-              v-model="select"
-              :items="allTitles"
-              :rules="[v => !!v || 'Выберете категорию.']"
-              label="Категории"
-              required
-            ></v-select>
+    <v-card-title v-if="!categories.length">Создайте категорию, сэр.</v-card-title>
+    <div class="edit" v-else>
+      <v-card-title>Редактировать категорию</v-card-title>
+      <v-form
+        ref="form"
+        v-model="valid"
+        lazy-validation
+      >
+        <v-card-text>
+          <v-select
+            dense
+            v-model="select"
+            :items="allTitles"
+            :rules="[v => !!v || 'Выберете категорию.']"
+            label="Категории"
+            required
+          ></v-select>
 
-            <v-text-field
-              v-model="title"
-              :counter="10"
-              :rules="nameRules"
-              label="Name"
-              required
-            ></v-text-field>
+          <v-text-field
+            v-model="title"
+            :counter="10"
+            :rules="nameRules"
+            label="Name"
+            required
+          ></v-text-field>
 
 
-            <v-text-field
-              type="number"
-              prefix="₽"
-              v-model.number="limit"
-              :counter="10"
-              :rules="limitRules"
-              label="Limit"
-              required
-            ></v-text-field>
-            <!--    <v-text-field-->
-            <!--      v-model="email"-->
-            <!--      :rules="emailRules"-->
-            <!--      label="E-mail"-->
-            <!--      required-->
-            <!--    ></v-text-field>-->
+          <v-text-field
+            type="number"
+            prefix="₽"
+            v-model.number="limit"
+            :counter="10"
+            :rules="limitRules"
+            label="Limit"
+            required
+          ></v-text-field>
+          <!--    <v-text-field-->
+          <!--      v-model="email"-->
+          <!--      :rules="emailRules"-->
+          <!--      label="E-mail"-->
+          <!--      required-->
+          <!--    ></v-text-field>-->
 
-      <!--          <v-select-->
-      <!--            v-model="select"-->
-      <!--            :items="items"-->
-      <!--            :rules="[v => !!v || 'Item is required']"-->
-      <!--            label="Item"-->
-      <!--            required-->
-      <!--          ></v-select>-->
+          <!--          <v-select-->
+          <!--            v-model="select"-->
+          <!--            :items="items"-->
+          <!--            :rules="[v => !!v || 'Item is required']"-->
+          <!--            label="Item"-->
+          <!--            required-->
+          <!--          ></v-select>-->
 
-            <!--    <v-checkbox-->
-            <!--      v-model="checkbox"-->
-            <!--      :rules="[v => !!v || 'You must agree to continue!']"-->
-            <!--      label="Do you agree?"-->
-            <!--      required-->
-            <!--    ></v-checkbox>-->
+          <!--    <v-checkbox-->
+          <!--      v-model="checkbox"-->
+          <!--      :rules="[v => !!v || 'You must agree to continue!']"-->
+          <!--      label="Do you agree?"-->
+          <!--      required-->
+          <!--    ></v-checkbox>-->
 
-            <v-btn
-              :disabled="!valid"
-              color="success"
-              class="mr-4"
-              @click="submit"
-            >
-              Редактировать
-            </v-btn>
+          <v-btn
+            :disabled="!valid"
+            color="success"
+            class="mr-4"
+            @click="submit"
+          >
+            Редактировать
+          </v-btn>
 
-            <v-btn
-              color="error"
-              class="mr-4"
-              @click="reset"
-            >
-              Очистить
-            </v-btn>
+          <v-btn
+            color="error"
+            class="mr-4"
+            @click="reset"
+          >
+            Удалить категорию
+          </v-btn>
 
-          </v-card-text>
-        </v-form>
+        </v-card-text>
+      </v-form>
+    </div>
+
   </v-card>
 </template>
 

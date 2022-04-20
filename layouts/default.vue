@@ -128,8 +128,8 @@ export default {
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          title: 'Новая запись',
+          to: '/record'
         },
         {
           icon: 'mdi-domain',
