@@ -1,5 +1,6 @@
 <template>
   <v-card width="40%">
+    <Snackbar/>
     <v-card-title v-if="!categories.length">Создайте категорию, сэр.</v-card-title>
     <div class="edit" v-else>
       <v-card-title>Редактировать категорию</v-card-title>
@@ -83,8 +84,10 @@
 </template>
 
 <script>
+import Snackbar from "./Snackbar";
 export default {
   name:'EditCategories',
+  components: {Snackbar},
   data: () => ({
     valid: true,
     title: '',
@@ -176,6 +179,8 @@ export default {
             this.select=categoryData.title
           }
           console.log(this.allTitles)
+          // alert('Категория отредактированна')
+
 
         }catch (e){
 

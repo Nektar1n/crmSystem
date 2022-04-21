@@ -3,7 +3,8 @@ import * as Zlib from "zlib";
 
 export const state = () => ({
   category: {},
-  titles:[]
+  titles:[],
+  changedCategory:{},
 })
 
 export const mutations = {
@@ -15,6 +16,9 @@ export const mutations = {
   // },
   setCategory(state, category){
     state.category=category
+  },
+  setChangedCategory(state,changedCategory){
+    state.changedCategory=changedCategory
   }
 }
 export const getters ={
@@ -79,6 +83,13 @@ export const actions={
       const uid=localStorage.getItem('uid')
 
       await firebase.database().ref(`/users/${uid}/categories`).child(id).update({title,limit})
+      const changedCategory={
+        title:this.title,
+        limit:this.limit,
+        id:this.id
+      }
+      commit('setChangedCategory', changedCategory)
+      console.log('it s changed category'+changedCategory)
       // commit('setCategory', {id:category.key})
       // return {title, limit, id: category.key}
     }catch (e){

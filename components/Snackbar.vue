@@ -37,9 +37,17 @@ export default {
     },
     createCategory(){
       return this.$store.state.category.category
+    },
+    updateCategory(){
+      return this.$store.state.category.changedCategory
     }
   },
   watch:{
+    updateCategory(){
+      this.message='Вы отредактировали категорию'
+      this.snackbar=!!this.message
+      console.log(this.updateCategory)
+    },
     err(fbError){
       this.message=this.err
       this.snackbar=!!this.message

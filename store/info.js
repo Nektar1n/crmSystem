@@ -15,6 +15,16 @@ export const mutations = {
 }
 
 export const actions={
+  async updateInfo({dispatch,commit, getters},toUpdate){
+    try {
+      const uid=localStorage.getItem('uid')
+      const updateData={...getters.info, ...toUpdate}
+      await firebase.database().ref(`/users/${uid}/info`).update(updateData)
+      commit('setInfo',updateData)
+    }catch (e){
+      throw e
+    }
+  },
   async fetchInfo({dispatch, commit}){
     try {
       // const uid=await dispatch('getUid')

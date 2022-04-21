@@ -16,6 +16,7 @@
           v-model="category"
           :items="categories"
           item-text="title"
+          item-value="id"
           label="Выберите категорию"
         ></v-select>
         <v-radio-group
@@ -38,7 +39,7 @@
           label="Сумма"
           clearable
           type="number"
-          :counter="10"
+          :counter="20"
           :rules="sumRules"
         ></v-text-field>
         <v-text-field
@@ -61,6 +62,7 @@
 </template>
 
 <script>
+
 import Loader from "../components/app/Loader";
 export default {
   name: "record",
@@ -77,8 +79,8 @@ export default {
     type:'outcome',
     sumRules:[
       v => !!v || "Введите сумму.",
-      v => (v && Number(v) >= 100) || "Сумма должна быть не меньше 100.",
-      v => (v && String(v).length <= 10) || "Слишком большое количество денег."
+      v => (v && Number(v) >= 1) || "Сумма должна быть не меньше 1.",
+      v => (v && String(v).length <= 20) || "Слишком большое количество денег."
     ],
     descriptionRules: [
       v => !!v || 'Описание пустое.',
@@ -90,25 +92,54 @@ export default {
     this.categories=await this.$store.dispatch('category/fetchCategories')
     this.loading=false
 
-    // if (this.categories.length){
-    //   this.category=this.categories[0].title
-    // }
+    if (this.categories.length){
+      this.category=this.categories[0]
+      console.log('it s category')
+      console.log(this.category)
+    }
+  },
+  watch:{
+    category(newCat){
+      console.log(this.category)
+
+    }
+  },
+  computed:{
+    infoUser(){
+      return this.$store.getters["info/info"]
+    },
+    canCreateRecord(){
+      if (this.type==='income'){
+        return true
+      }
+
+      return this.infoUser.bill>=this.sum
+    }
   },
   methods:{
     async submit () {
       if (this.$refs.form.validate()){
-        try {
-          // const category=await this.$store.dispatch('category/createCategory',{
-          //   title:this.title,
-          //   limit:this.limit
-          // })
-          // this.title=''
-          // this.limit=100
-          // this.$refs.form.resetValidation()
-          // this.$emit('createCategory', category)
-          // await this.$store.dispatch('category/fetchCategories')
-        }catch (e){
+        if (this.canCreateRecord){
+          try {
+            await this.$store.dispatch('record/createRecord', {
+              categoryId:this.category,
+              sum:this.sum,
+              description: this.description,
+              type:this.type,
+              date: new Date().toJSON()
+            })
+            const bill=this.type==='income'?this.infoUser.bill+this.sum:this.infoUser.bill-this.sum
 
+            await this.$store.dispatch('info/updateInfo',{bill})
+            alert('Запись успешно создана')
+            this.sum=1
+            this.description=''
+            this.$refs.form.resetValidation()
+          }catch (e){
+          }
+        }
+        else {
+          alert(`Недостаточно средств на счёте (${this.sum-this.infoUser.bill})`)
         }
       }else{
         this.$refs.form.validate()
