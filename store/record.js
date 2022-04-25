@@ -13,5 +13,14 @@ export const actions={
     }catch (e){
       throw e
     }
+  },
+  async fetchRecords({dispatch,commit}){
+    try {
+      const uid=localStorage.getItem('uid')
+      const records=(await firebase.database().ref(`/users/${uid}/records`).once('value')).val() || {}
+      return Object.keys(records).map(key=>({...records[key], id: key}))
+    }catch (e){
+      throw e
+    }
   }
 }

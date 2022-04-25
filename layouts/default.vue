@@ -127,7 +127,7 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-folder-open',
           title: 'Новая запись',
           to: '/record'
         },
@@ -142,7 +142,9 @@ export default {
           to:'/categories'
         },
         {
-
+          icon: 'mdi-arrow-up-bold-box-outline',
+          title: 'Планирование',
+          to: '/planning'
         }
       ],
       miniVariant: false,
