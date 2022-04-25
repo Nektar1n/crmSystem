@@ -145,6 +145,11 @@ export default {
           icon: 'mdi-arrow-up-bold-box-outline',
           title: 'Планирование',
           to: '/planning'
+        },
+        {
+          icon: 'mdi-dialpad',
+          title:'История',
+          to: '/history'
         }
       ],
       miniVariant: false,

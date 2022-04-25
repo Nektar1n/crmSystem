@@ -26,6 +26,20 @@ export const getters ={
 }
 
 export const actions={
+  async fetchCategoryById({commit,dispatch}, id){
+    try {
+      const uid=localStorage.getItem('uid')
+
+      const category=(await firebase.database().ref(`/users/${uid}/categories`).child(id).once('value')).val() || {}
+
+      return {
+        ...category,
+        id
+      }
+    }catch (e){
+
+    }
+  },
   async fetchCategories({commit, dispatch}){
     try {
       const uid=localStorage.getItem('uid')
