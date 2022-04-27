@@ -127,11 +127,6 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-folder-open',
-          title: 'Новая запись',
-          to: '/record'
-        },
-        {
           icon: 'mdi-domain',
           title: 'Счёт',
           to: '/score'
@@ -140,6 +135,11 @@ export default {
           icon: 'mdi-widgets',
           title: 'Категории',
           to:'/categories'
+        },
+        {
+          icon: 'mdi-folder-open',
+          title: 'Новая запись',
+          to: '/record'
         },
         {
           icon: 'mdi-arrow-up-bold-box-outline',
