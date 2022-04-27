@@ -40,9 +40,17 @@ export default {
     },
     updateCategory(){
       return this.$store.state.category.changedCategory
+    },
+    updatedRecord(){
+      return this.$store.state.record.record
     }
+
   },
   watch:{
+    updatedRecord(){
+      this.message='Вы создали запись'
+      this.snackbar=!!this.message
+    },
     updateCategory(){
       this.message='Вы отредактировали категорию'
       this.snackbar=!!this.message

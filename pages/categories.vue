@@ -50,4 +50,11 @@ export default {
   display: flex;
   justify-content: space-around;
 }
+@media (max-width: 900px) {
+  .categories{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
 </style>

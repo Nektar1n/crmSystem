@@ -1,5 +1,5 @@
 <template>
-  <v-card width="40%">
+  <v-card width="40%" min-width="300px">
     <v-card-title>Создать категорию</v-card-title>
         <v-form
           ref="form"

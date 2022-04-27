@@ -2,14 +2,23 @@ import firebase from "firebase/compat";
 
 
 export const state = () => ({
-
+  record: {}
 })
+
+export const mutations={
+  updRecord(state, rec){
+    state.record=rec
+  }
+}
 
 export const actions={
   async createRecord({dispatch,commit},record){
     try {
       const uid=localStorage.getItem('uid')
+      commit('updRecord', record)
       return await firebase.database().ref(`/users/${uid}/records`).push(record)
+
+
     }catch (e){
       throw e
     }

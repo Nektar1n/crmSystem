@@ -1,5 +1,6 @@
 <template>
   <v-card height="100%">
+    <Snackbar/>
     <v-card-text>
       <Loader v-if="loading"/>
       <p v-else-if="!categories.length">Категорий пока нет. <nuxt-link to="/categories">Добавить категорию</nuxt-link></p>
@@ -64,9 +65,10 @@
 <script>
 
 import Loader from "../components/app/Loader";
+import Snackbar from "../components/Snackbar";
 export default {
   name: "record",
-  components: {Loader},
+  components: {Snackbar, Loader},
   data: () => ({
     items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
     radios: null,
@@ -93,7 +95,7 @@ export default {
     this.loading=false
 
     if (this.categories.length){
-      this.category=this.categories[0]
+      // this.category=this.categories[0]
       console.log('it s category')
       console.log(this.category)
     }
@@ -131,7 +133,8 @@ export default {
             const bill=this.type==='income'?this.infoUser.bill+this.sum:this.infoUser.bill-this.sum
 
             await this.$store.dispatch('info/updateInfo',{bill})
-            alert('Запись успешно создана')
+
+
             this.sum=1
             this.description=''
             this.$refs.form.resetValidation()

@@ -1,5 +1,5 @@
 <template>
-  <v-card width="40%">
+  <v-card width="40%" min-width="300px">
     <Snackbar/>
     <v-card-title v-if="!categories.length">Создайте категорию, сэр.</v-card-title>
     <div class="edit" v-else>
@@ -68,13 +68,13 @@
             Редактировать
           </v-btn>
 
-          <v-btn
-            color="error"
-            class="mr-4"
-            @click="reset"
-          >
-            Удалить категорию
-          </v-btn>
+<!--          <v-btn-->
+<!--            color="error"-->
+<!--            class="mr-4"-->
+<!--            @click="reset"-->
+<!--          >-->
+<!--            Удалить категорию-->
+<!--          </v-btn>-->
 
         </v-card-text>
       </v-form>

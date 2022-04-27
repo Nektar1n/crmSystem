@@ -82,7 +82,7 @@
 <!--          </v-list-item-action>-->
 <!--          <v-list-item-title>Switch drawer (click me)</v-list-item-title>-->
 <!--        </v-list-item>-->
-        <v-list-item>
+        <v-list-item @click="$router.push('/profile')">
           <v-list-item-action>
             <v-icon>
               mdi-account
