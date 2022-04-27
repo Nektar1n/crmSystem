@@ -42,6 +42,9 @@
 
 <script>
 export default {
+  head:{
+    title: 'Профиль'
+  },
   name: "profile",
   data: ()=>({
     radios: null,

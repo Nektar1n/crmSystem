@@ -34,6 +34,9 @@ const chartColors = {
 
 
 export default {
+  head:{
+    title: `История`
+  },
   name: "history",
   components: { Loader, HistoryTable, PieChart},
   data: ()=>({
@@ -50,7 +53,7 @@ export default {
       },
       title: {
         display: true,
-        text: 'Monthly Income'
+        text: 'История записей'
       },
       scales: {
         yAxes: [

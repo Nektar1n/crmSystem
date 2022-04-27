@@ -31,6 +31,9 @@ import Loader from "../components/app/Loader";
 import HomeBill from "../components/HomeBill";
 import Currency from "../components/Currency";
 export default {
+  head:{
+    title: 'Счёт'
+  },
   data : ()=>({
     loading:true,
     currency:null,

@@ -66,6 +66,9 @@ export default {
   components: {Snackbar},
   layout:'started',
   data: () => ({
+    head:{
+      title: 'Регистрация'
+    },
     valid: true,
     name: '',
     nameRules: [

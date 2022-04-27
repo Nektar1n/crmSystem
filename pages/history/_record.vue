@@ -23,6 +23,9 @@
 <script>
 import Loader from "../../components/app/Loader";
 export default {
+  head:{
+    title: 'Текущая запись'
+  },
   name: "record",
   components: {Loader},
   data: ()=>({

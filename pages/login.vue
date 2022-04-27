@@ -71,6 +71,9 @@
 <script>
 import Snackbar from "../components/Snackbar";
 export default {
+  head:{
+    title: 'Вход'
+  },
   name:'login',
   components: {Snackbar},
   layout:'started',

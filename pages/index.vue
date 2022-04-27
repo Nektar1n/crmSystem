@@ -1,6 +1,6 @@
 <template>
   <v-card dark>
-  <h1>USER, HELLO!</h1>
+  <v-card-title>Популярность этой crm за последние 3 месяца.</v-card-title>
     <div class="container">
       <bar-chart :data="barChartData" :options="barChartOptions" :height="200" />
     </div>
@@ -21,6 +21,9 @@ const chartColors = {
 };
 
 export default {
+  head:{
+    title: 'Добро пожаловать в CRM'
+  },
   name: 'IndexPage',
   components:{BarChart},
   data: ()=>({
@@ -28,10 +31,10 @@ export default {
       labels: ['Jan', 'Feb', 'Mar'],
       datasets: [
         {
-          label: 'Income',
+          label: 'Популярность',
           // backgroundColor: ["red", "orange", "yellow"],
           backgroundColor: [chartColors.red, chartColors.orange, chartColors.yellow],
-          data: [10, 15, 20]
+          data: [10, 15, 30]
         }
       ]
     },
@@ -42,7 +45,7 @@ export default {
       },
       title: {
         display: true,
-        text: 'Monthly Income'
+        text: 'Растёт'
       },
       scales: {
         yAxes: [

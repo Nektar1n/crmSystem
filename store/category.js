@@ -19,7 +19,7 @@ export const mutations = {
   },
   setChangedCategory(state,changedCategory){
     state.changedCategory=changedCategory
-  }
+  },
 }
 export const getters ={
     getTitles: state=>state.titles
@@ -31,7 +31,6 @@ export const actions={
       const uid=localStorage.getItem('uid')
 
       const category=(await firebase.database().ref(`/users/${uid}/categories`).child(id).once('value')).val() || {}
-
       return {
         ...category,
         id

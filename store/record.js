@@ -2,13 +2,13 @@ import firebase from "firebase/compat";
 
 
 export const state = () => ({
-  record: {}
+  record: {},
 })
 
 export const mutations={
   updRecord(state, rec){
     state.record=rec
-  }
+  },
 }
 
 export const actions={

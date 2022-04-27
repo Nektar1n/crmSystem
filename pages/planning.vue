@@ -34,6 +34,9 @@
 import Loader from "../components/app/Loader";
 import currencyFilter from "../plugins/currency.filter";
 export default {
+  head:{
+    title: 'Планирование'
+  },
   name: "planning",
   components: {Loader},
   data: ()=>({

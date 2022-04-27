@@ -67,10 +67,12 @@
 import Loader from "../components/app/Loader";
 import Snackbar from "../components/Snackbar";
 export default {
+  head:{
+    title: 'Записи'
+  },
   name: "record",
   components: {Snackbar, Loader},
   data: () => ({
-    items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
     radios: null,
     sum: null,
     description: null,

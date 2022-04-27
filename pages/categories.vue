@@ -18,6 +18,9 @@ import EditCategories from "../components/EditCategories";
 import Snackbar from "../components/Snackbar";
 import Loader from "../components/app/Loader";
 export default {
+  head:{
+    title: 'Категории'
+  },
   name: "categories",
   components: {Loader, Snackbar, EditCategories, CategoriesForm},
   data: ()=>({
